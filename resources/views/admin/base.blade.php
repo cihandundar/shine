@@ -14,13 +14,13 @@
 
 <body>
 
-    @include('front.partials.header')
+    @include('admin.partials.sidebar')
 
     @yield('content')
 
-    @include('front.partials.footer')
+    @include('admin.partials.footer')
 
-    @include('front.partials.script')
+    @include('admin.partials.script')
 
 </body>
 
