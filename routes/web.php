@@ -24,4 +24,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/login', [LoginController::class, 'login'])->name('auth.login.post');
+
