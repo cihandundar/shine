@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Giriş Yap</title>
+    <title>Panel Login</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -12,7 +12,12 @@
 
     <div class="grid gap-5 grid-cols-12 bg-black h-screen">
         <div class="lg:col-span-6 col-span-12 flex flex-col items-center justify-center w-full p-30">
-            <div class="text-4xl text-white mb-8 capitalize">admin login</div>
+            <div class="text-4xl text-white mb-8 capitalize">panel login</div>
+            @if (session('error'))
+                <div class="text-red-500 text-center mb-5">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form method="POST" action="{{ route('auth.login.post') }}" class="w-full">
                 @csrf
                 <div class="relative w-full mb-5">
@@ -46,7 +51,7 @@
                 </button>
             </form>
         </div>
-        <img src="/front/assets/images/background.jpg" alt="Background Image"
+        <img src="/front/assets/images/background.jpg" alt="Login Image"
             class="w-full object-cover h-full lg:col-span-6 col-span-12 " />
     </div>
 </body>
