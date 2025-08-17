@@ -1,9 +1,7 @@
 @extends('admin.base')
 
-@section('title', 'Blog List')
+@section('title', 'User Profile')
 
 @section('content')
-
-
 
 @endsection

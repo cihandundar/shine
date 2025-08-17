@@ -22,6 +22,16 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard.index');
         }
 
-        return redirect()->route('login.index')->with('error', 'Invalid Credentials');
+        return redirect()->route('login')->with('error', 'Invalid Credentials');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
