@@ -12,14 +12,13 @@
 
 </head>
 
-<body>
+<body class="min-h-screen flex flex-col">
 
     @include('admin.partials.header')
-    @include('admin.partials.sidebar')
-
-
-
-    @yield('content')
+    <div class="flex flex-1">
+        @include('admin.partials.sidebar')
+        @yield('content')
+    </div>
 
     @include('admin.partials.footer')
 

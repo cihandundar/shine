@@ -18,6 +18,11 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @if (session('success'))
+                <div class="text-green-500 text-center mb-5">
+                    {{ session('success') }}
+                </div>
+            @endif
             <form method="POST" action="{{ route('auth.login.post') }}" class="w-full">
                 @csrf
                 <div class="relative w-full mb-5">

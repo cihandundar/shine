@@ -24,6 +24,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/blogList', [BlogController::class, 'index'])->name('blog.index');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('profile.update');
 
 
 
