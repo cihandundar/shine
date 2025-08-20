@@ -3,12 +3,18 @@
 @section('title', 'User Profile')
 
 @section('content')
-    <section class="container max-w-screen-xl mx-auto p-[75px]">
+    <section class="container max-w-screen-xl mx-auto py-[75px]">
         <div class="grid grid-cols-12">
             @if ($user->profile_image)
-                <div class="col-span-2 flex flex-col items-center gap-2">
+                <div class="col-span-2 flex flex-col items-center gap-1">
                     <img src="{{ asset($user->profile_image) }}" alt=""
                         class="w-[100px] h-[100px] object-cover rounded-full">
+                    <div class="text-xl">
+                        {{ $user->name }}
+                    </div>
+                    <div class="text-sm">
+                        {{ $user->email }}
+                    </div>
                 </div>
             @else
                 <div class="col-span-2 text-2xl flex items-center justify-center bg-gray-200 rounded-full h-16 w-16">
@@ -16,16 +22,16 @@
                 </div>
             @endif
             <div class="col-span-10">
-                @if(session('success'))
+                @if (session('success'))
                     <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
                         {{ session('success') }}
                     </div>
                 @endif
-                
-                @if($errors->any())
+
+                @if ($errors->any())
                     <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
                         <ul>
-                            @foreach($errors->all() as $error)
+                            @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
