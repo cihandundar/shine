@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\admin\roles;
-use App\Models\admin\permission;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\admin\Role;
+use App\Models\admin\Permission;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,64 +15,78 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create default roles
-        $adminRole = roles::create(['name' => 'Super Admin']);
-        $editorRole = roles::create(['name' => 'Editor']);
-        $authorRole = roles::create(['name' => 'Author']);
-        $userRole = roles::create(['name' => 'User']);
+        // Create roles
+        $adminRole = Role::create(['name' => 'Super Admin']);
+        $editorRole = Role::create(['name' => 'Editor']);
+        $authorRole = Role::create(['name' => 'Author']);
+        $userRole = Role::create(['name' => 'User']);
 
-        // Create permissions for admin role
-        $adminPermissions = [
-            'user_management',
-            'role_management', 
-            'blog_management',
-            'system_settings'
-        ];
-
-        foreach ($adminPermissions as $permission) {
-            permission::create([
-                'name' => $permission,
-                'role_id' => $adminRole->id
-            ]);
-        }
-
-        // Create permissions for editor role
-        $editorPermissions = [
-            'blog_management',
-            'content_editing'
-        ];
-
-        foreach ($editorPermissions as $permission) {
-            permission::create([
-                'name' => $permission,
-                'role_id' => $editorRole->id
-            ]);
-        }
-
-        // Create permissions for author role
-        $authorPermissions = [
-            'content_creation',
-            'self_content_editing'
-        ];
-
-        foreach ($authorPermissions as $permission) {
-            permission::create([
-                'name' => $permission,
-                'role_id' => $authorRole->id
-            ]);
-        }
-
-        // Create test user with admin role
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
+        // Create permissions for Super Admin
+        Permission::create([
+            'name' => 'manage_users',
+            'role_id' => $adminRole->id
+        ]);
+        Permission::create([
+            'name' => 'manage_roles',
+            'role_id' => $adminRole->id
+        ]);
+        Permission::create([
+            'name' => 'manage_posts',
             'role_id' => $adminRole->id
         ]);
 
-        // Create regular test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Create permissions for Editor
+        Permission::create([
+            'name' => 'manage_posts',
+            'role_id' => $editorRole->id
+        ]);
+        Permission::create([
+            'name' => 'view_users',
+            'role_id' => $editorRole->id
+        ]);
+
+        // Create permissions for Author
+        Permission::create([
+            'name' => 'create_posts',
+            'role_id' => $authorRole->id
+        ]);
+        Permission::create([
+            'name' => 'edit_own_posts',
+            'role_id' => $authorRole->id
+        ]);
+
+        // Create permissions for User
+        Permission::create([
+            'name' => 'view_posts',
+            'role_id' => $userRole->id
+        ]);
+
+        // Create test users
+        User::create([
+            'name' => 'Admin User',
+            'email' => 'admin@shine.com',
+            'password' => Hash::make('password'),
+            'role_id' => $adminRole->id
+        ]);
+
+        User::create([
+            'name' => 'Editor User',
+            'email' => 'editor@shine.com',
+            'password' => Hash::make('password'),
+            'role_id' => $editorRole->id
+        ]);
+
+        User::create([
+            'name' => 'Author User',
+            'email' => 'author@shine.com',
+            'password' => Hash::make('password'),
+            'role_id' => $authorRole->id
+        ]);
+
+        User::create([
+            'name' => 'Regular User',
+            'email' => 'user@shine.com',
+            'password' => Hash::make('password'),
             'role_id' => $userRole->id
         ]);
     }

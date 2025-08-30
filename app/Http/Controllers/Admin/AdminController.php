@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\admin\roles;
-use App\Models\admin\permission;
+use App\Models\admin\Role;
+use App\Models\admin\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +14,9 @@ class AdminController extends Controller
 {
     public function index()
     {
+        // Eager loading ile role bilgisini al
         $users = User::with('role')->get();
-        $roles = roles::all();
+        $roles = Role::all();
         return view('admin.pages.adminList', compact('users', 'roles'));
     }
 

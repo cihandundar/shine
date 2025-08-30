@@ -13,12 +13,16 @@
 
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen bg-gray-100">
 
     @include('admin.partials.header')
-    <div class="flex flex-1">
+    
+    <div class="flex min-h-screen">
         @include('admin.partials.sidebar')
-        @yield('content')
+        
+        <main class="flex-1 min-h-screen">
+            @yield('content')
+        </main>
     </div>
 
     @include('admin.partials.footer')

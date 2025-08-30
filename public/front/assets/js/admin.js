@@ -1,26 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Admin.js loaded successfully!");
+    
     const btn = document.getElementById("logoDropdownBtn");
     const menu = document.getElementById("logoDropdownMenu");
+    
+    console.log("Dropdown button:", btn);
+    console.log("Dropdown menu:", menu);
+    console.log("Button element found:", !!btn);
+    console.log("Menu element found:", !!menu);
 
-    // Logo tıklayınca aç/kapat
-    btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (menu.classList.contains("scale-0")) {
-            menu.classList.remove("scale-0");
-            menu.classList.add("scale-100");
-        } else {
-            menu.classList.remove("scale-100");
-            menu.classList.add("scale-0");
-        }
-    });
+    if (btn && menu) {
+        console.log("Both elements found, adding event listeners...");
+        
+        // Logo tıklayınca aç/kapat
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            console.log("Dropdown button clicked!");
+            console.log("Current menu classes:", menu.className);
+            console.log("Contains scale-0:", menu.classList.contains("scale-0"));
+            
+            if (menu.classList.contains("scale-0")) {
+                console.log("Opening dropdown...");
+                menu.classList.remove("scale-0");
+                menu.classList.add("scale-100");
+                console.log("Menu classes after opening:", menu.className);
+            } else {
+                console.log("Closing dropdown...");
+                menu.classList.remove("scale-100");
+                menu.classList.add("scale-0");
+                console.log("Menu classes after closing:", menu.className);
+            }
+        });
 
-    // Menü dışında tıklanınca kapan
-    document.addEventListener("click", (e) => {
-        if (!menu.contains(e.target)) {
-            menu.classList.remove("scale-100");
-            menu.classList.add("scale-0");
-        }
-    });
+        // Menü dışında tıklanınca kapan
+        document.addEventListener("click", (e) => {
+            if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                console.log("Closing dropdown (outside click)");
+                menu.classList.remove("scale-100");
+                menu.classList.add("scale-0");
+            }
+        });
+        
+        console.log("Event listeners added successfully!");
+    } else {
+        console.error("Dropdown elements not found!");
+        console.error("Button:", btn);
+        console.error("Menu:", menu);
+    }
 
     // User Management Functions
     initializeUserManagement();
@@ -134,7 +160,7 @@ function closeRoleModal() {
 // Delete User Function
 function deleteUser(userId) {
     if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-        const form = document.createElement('form');
+        const form = document.createElement('input');
         form.method = 'POST';
         form.action = `/admin/adminList/${userId}`;
         

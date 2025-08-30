@@ -4,6 +4,8 @@ alwaysApply: true
 
 inline js kullanma.
 
+tailwind.css kullan düz css yazma.
+
 header footer sidebar gibi alanları partials klasörü açıp, ayrı blade dosyalarına yaz.
 
 mümkün olan her yapıyı farklı bir blade dosyasına ayır ve onu include et

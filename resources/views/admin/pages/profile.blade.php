@@ -45,11 +45,11 @@
                         <input type="text" name="name" placeholder=" " value="{{ $user->name }}"
                             class="outline-none p-4 border border-black w-full rounded-md peer focus:border-black text-black bg-transparent" />
                         <label for="name"
-                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-white rounded px-1 transition-all duration-200 ease-in-out
+                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-gray-100 rounded px-1 transition-all duration-200 ease-in-out
     peer-placeholder-shown:top-4 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-placeholder-shown:scale-100
-    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-white peer-focus:px-1
+    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-gray-100 peer-focus:px-1
     peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:left-3 peer-[&:not(:placeholder-shown)]:text-xs
-    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-white peer-[&:not(:placeholder-shown)]:px-1">
+    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-gray-100 peer-[&:not(:placeholder-shown)]:px-1">
                             Username
                         </label>
                     </div>
@@ -57,11 +57,11 @@
                         <input type="email" name="email" placeholder=" " value="{{ $user->email }}"
                             class="outline-none p-4 border border-black w-full rounded-md peer focus:border-black text-black bg-transparent" />
                         <label for="email"
-                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-white rounded px-1 transition-all duration-200 ease-in-out
+                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-gray-100 rounded px-1 transition-all duration-200 ease-in-out
     peer-placeholder-shown:top-4 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-placeholder-shown:scale-100
-    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-white peer-focus:px-1
+    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-gray-100 peer-focus:px-1
     peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:left-3 peer-[&:not(:placeholder-shown)]:text-xs
-    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-white peer-[&:not(:placeholder-shown)]:px-1">
+    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-gray-100 peer-[&:not(:placeholder-shown)]:px-1">
                             Email
                         </label>
                     </div>
@@ -69,11 +69,11 @@
                         <input type="password" name="password" placeholder=" "
                             class="outline-none p-4 border border-black w-full rounded-md peer focus:border-black text-black bg-transparent" />
                         <label for="password"
-                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-white rounded px-1 transition-all duration-200 ease-in-out
+                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-gray-100 rounded px-1 transition-all duration-200 ease-in-out
     peer-placeholder-shown:top-4 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-placeholder-shown:scale-100
-    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-white peer-focus:px-1
+    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-gray-100 peer-focus:px-1
     peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:left-3 peer-[&:not(:placeholder-shown)]:text-xs
-    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-white peer-[&:not(:placeholder-shown)]:px-1">
+    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-gray-100 peer-[&:not(:placeholder-shown)]:px-1">
                             Password
                         </label>
                     </div>
@@ -81,11 +81,11 @@
                         <input type="password" name="password_confirmation" placeholder=" "
                             class="outline-none p-4 border border-black w-full rounded-md peer focus:border-black text-black bg-transparent" />
                         <label for="password_confirmation"
-                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-white rounded px-1 transition-all duration-200 ease-in-out
+                            class="text-black capitalize absolute left-4 top-4 text-base pointer-events-none bg-gray-100 rounded px-1 transition-all duration-200 ease-in-out
     peer-placeholder-shown:top-4 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-placeholder-shown:scale-100
-    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-white peer-focus:px-1
+    peer-focus:-top-2 peer-focus:left-3 peer-focus:text-xs peer-focus:scale-90 peer-focus:bg-gray-100 peer-focus:px-1
     peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:left-3 peer-[&:not(:placeholder-shown)]:text-xs
-    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-white peer-[&:not(:placeholder-shown)]:px-1">
+    peer-[&:not(:placeholder-shown)]:scale-90 peer-[&:not(:placeholder-shown)]:bg-gray-100 peer-[&:not(:placeholder-shown)]:px-1">
                             Confirm Password
                         </label>
                     </div>
