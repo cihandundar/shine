@@ -14,18 +14,18 @@ class CheckRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
         // Kullanıcı giriş yapmamışsa login'e yönlendir
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect()->route('admin.login');
         }
 
         $user = Auth::user();
-        
+
         // Kullanıcının role'ü yoksa erişimi reddet
         if (!$user->role) {
-            abort(403, 'Access denied. No role assigned.');
+            abort(403, 'Access denied');
         }
 
         // Super Admin tüm sayfalara erişebilir
@@ -34,11 +34,11 @@ class CheckRole
         }
 
         // Belirtilen role kontrolü
-        if ($user->role->name === $role) {
+        if (in_array($user->role->name, $roles)) {
             return $next($request);
         }
 
         // Yetkisiz erişim
-        abort(403, 'Access denied. Insufficient permissions.');
+        abort(403, 'Access denied');
     }
 }

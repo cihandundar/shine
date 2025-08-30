@@ -6,7 +6,9 @@ use Illuminate\Database\Seeder;
 use App\Models\admin\Role;
 use App\Models\admin\Permission;
 use App\Models\User;
+use App\Models\Author;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -88,6 +90,34 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@shine.com',
             'password' => Hash::make('password'),
             'role_id' => $userRole->id
+        ]);
+
+        // Create sample authors
+        Author::factory(5)->create();
+
+        // Test kategorileri oluşturuyoruz
+        $categories = [
+            'Technology' => 'Technology related articles and tutorials',
+            'Business' => 'Business insights and strategies',
+            'Lifestyle' => 'Lifestyle and personal development',
+            'Health' => 'Health and wellness tips',
+            'Travel' => 'Travel experiences and guides',
+            'Food' => 'Food recipes and culinary adventures',
+            'Education' => 'Educational content and learning resources',
+            'Entertainment' => 'Entertainment news and reviews'
+        ];
+
+        foreach ($categories as $name => $description) {
+            Category::create([
+                'name' => $name,
+                'slug' => \Illuminate\Support\Str::slug($name),
+                'description' => $description
+            ]);
+        }
+
+        // Blog yazılarını oluştur
+        $this->call([
+            BlogSeeder::class
         ]);
     }
 }

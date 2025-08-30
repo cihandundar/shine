@@ -27,6 +27,20 @@
             'visible' => $isEditor, // Admin, Editor ve üstü görebilir
         ],
         [
+            'title' => 'Categories',
+            'url' => route('admin.category.index'),
+            'route' => 'admin.category.index',
+            'icon' => 'fa-solid fa-folder',
+            'visible' => $isEditor, // Admin, Editor ve üstü görebilir
+        ],
+        [
+            'title' => 'Authors',
+            'url' => route('admin.author.index'),
+            'route' => 'admin.author.index',
+            'icon' => 'fa-solid fa-user-pen',
+            'visible' => $isEditor, // Admin, Editor ve üstü görebilir
+        ],
+        [
             'title' => 'Profile',
             'url' => route('admin.profile'),
             'route' => 'admin.profile',
@@ -37,6 +51,7 @@
 @endphp
 
 <aside class="bg-white shadow-2xl lg:w-[15%] w-[35%] h-screen min-h-screen sticky top-0 left-0">
+
 
     <nav class="w-full h-full">
         <ul class="w-full h-full flex flex-col">
@@ -60,11 +75,6 @@
                             <i class="{{ $item['icon'] }} mr-3 text-lg"></i>
                             <span class="font-medium">{{ $item['title'] }}</span>
                         </a>
-                    </li>
-                @else
-                    <!-- Debug: Gizli menü -->
-                    <li class="w-full bg-gray-100 p-2 text-xs text-gray-500">
-                        Hidden: {{ $item['title'] }} (Visible: {{ $item['visible'] ? 'Yes' : 'No' }})
                     </li>
                 @endif
             @endforeach
