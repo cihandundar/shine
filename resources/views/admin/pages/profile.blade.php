@@ -3,7 +3,7 @@
 @section('title', 'User Profile')
 
 @section('content')
-    <section class="container max-w-screen-xl mx-auto py-[75px]">
+    <section class="container max-w-screen-xl mx-auto py-[80px] px-[40px]">
         <div class="grid grid-cols-12">
             @if ($user->profile_image)
                 <div class="col-span-2 flex flex-col items-center gap-1">

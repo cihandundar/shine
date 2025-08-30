@@ -50,6 +50,12 @@
                         Password
                     </label>
                 </div>
+                <div class="flex text-white mb-5 gap-1 items-center">
+                    <label class="cursor-pointer">
+                        <input type="checkbox" name="remember" value="">
+                        Remember Me!
+                    </label>
+                </div>
                 <button type="submit"
                     class="w-full bg-green-300 text-black py-5 rounded-md hover:bg-green-600 transition cursor-pointer">
                     Login

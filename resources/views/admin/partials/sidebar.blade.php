@@ -7,6 +7,12 @@
             'icon' => 'fa-solid fa-house',
         ],
         [
+            'title' => 'Admin List',
+            'url' => route('admin.adminList'),
+            'route' => 'admin.adminList',
+            'icon' => 'fa-solid fa-user',
+        ],
+        [
             'title' => 'Blog List',
             'url' => route('admin.blog.index'),
             'route' => 'admin.blog.index',

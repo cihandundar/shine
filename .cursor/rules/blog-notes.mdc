@@ -1,0 +1,18 @@
+---
+alwaysApply: true
+---
+
+inline js kullanma.
+
+header footer sidebar gibi alanları partials klasörü açıp, ayrı blade dosyalarına yaz.
+
+mümkün olan her yapıyı farklı bir blade dosyasına ayır ve onu include et
+
+javascript framework kullanma (vue.js, react, livewire vs gibi)
+
+
+blade dosyalarında class ve id isimlendirmelerinde İngilizce kelimeler kullan, Türkçe ifadeler kullanma
+
+migration, model ve controller dosyalarında isimlendirmeleri ingilizce olarak ilerlet.
+
+yaptığın değişiklerin açıklamalarıyla beraber üstüne notlar bırakarak açıkla ve bu yorum satırları türkçe olabilir.

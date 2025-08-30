@@ -17,8 +17,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $userData = $request->only('email', 'password');
+        $remember = $request->has('remember');
 
-        if (Auth::attempt($userData)) {
+        if (Auth::attempt($userData, $remember)) {
             return redirect()->route('admin.dashboard.index');
         }
 
