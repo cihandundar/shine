@@ -37,16 +37,23 @@ class BlogController extends Controller
             'excerpt' => 'nullable|string|max:500',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|in:published,draft',
-            'category_ids' => 'nullable|array', // Kategori ID'leri array olarak alıyoruz
+            'category_ids' => 'required|array|min:1', // En az bir kategori seçilmeli
             'category_ids.*' => 'exists:categories,id', // Her kategori ID'si geçerli olmalı
             'author_id' => 'required|exists:authors,id', // Yazar ID'si eklendi
             'published_date' => 'nullable|date', // Yayınlanma tarihi eklendi
+        ], [
+            'category_ids.required' => 'Please select at least one category.',
+            'category_ids.min' => 'Please select at least one category.',
+            'category_ids.*.exists' => 'One or more selected categories are invalid.'
         ]);
 
         // Featured image işleme
         $featuredImagePath = null;
         if ($request->hasFile('featured_image')) {
             $featuredImagePath = $request->file('featured_image')->store('blog_images', 'public');
+            // Debug için log ekleyelim
+            \Log::info('Blog image uploaded: ' . $featuredImagePath);
+            \Log::info('Full image path: ' . storage_path('app/public/' . $featuredImagePath));
         }
 
         $blog = Blog::create([
@@ -60,11 +67,11 @@ class BlogController extends Controller
         ]);
 
         // Kategorileri ekle
-        if ($request->has('category_ids')) {
+        if ($request->has('category_ids') && is_array($request->category_ids)) {
             $blog->categories()->attach($request->category_ids);
         }
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully');
+        return redirect()->route('admin.blog.index')->with('success', 'Blog created successfully');
     }
 
     public function edit($blog)
@@ -93,10 +100,14 @@ class BlogController extends Controller
             'excerpt' => 'nullable|string|max:500',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|in:published,draft',
-            'category_ids' => 'nullable|array',
+            'category_ids' => 'required|array|min:1', // En az bir kategori seçilmeli
             'category_ids.*' => 'exists:categories,id',
             'author_id' => 'required|exists:authors,id',
             'published_date' => 'nullable|date',
+        ], [
+            'category_ids.required' => 'Please select at least one category.',
+            'category_ids.min' => 'Please select at least one category.',
+            'category_ids.*.exists' => 'One or more selected categories are invalid.'
         ]);
 
         // Featured image işleme
@@ -107,6 +118,8 @@ class BlogController extends Controller
                 Storage::disk('public')->delete($blog->featured_image);
             }
             $featuredImagePath = $request->file('featured_image')->store('blog_images', 'public');
+            // Debug için log ekleyelim
+            \Log::info('Blog image updated: ' . $featuredImagePath);
         }
 
         $blog->update([
@@ -120,13 +133,13 @@ class BlogController extends Controller
         ]);
 
         // Kategorileri senkronize et
-        if ($request->has('category_ids')) {
+        if ($request->has('category_ids') && is_array($request->category_ids)) {
             $blog->categories()->sync($request->category_ids);
         } else {
             $blog->categories()->detach();
         }
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully');
+        return redirect()->route('admin.blog.index')->with('success', 'Blog updated successfully');
     }
 
     public function destroy($blog)
@@ -146,7 +159,7 @@ class BlogController extends Controller
 
         $blog->delete();
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully');
+        return redirect()->route('admin.blog.index')->with('success', 'Blog deleted successfully');
     }
 
     /**
@@ -168,6 +181,6 @@ class BlogController extends Controller
             $message = 'Blog published successfully';
         }
 
-        return redirect()->route('admin.blogs.index')->with('success', $message);
+        return redirect()->route('admin.blog.index')->with('success', $message);
     }
 }

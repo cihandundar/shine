@@ -114,7 +114,8 @@
                                         <div class="flex-shrink-0 h-12 w-12">
                                             @if($blog->featured_image)
                                                 <img src="{{ asset('storage/' . $blog->featured_image) }}" 
-                                                     alt="Featured Image" class="h-12 w-12 rounded-lg object-cover border border-gray-200">
+                                                     alt="Featured Image" class="h-12 w-12 rounded-lg object-cover border border-gray-200"
+                                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'h-12 w-12 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center\'><i class=\'fa-solid fa-image text-white text-sm\'></i></div>';">
                                             @else
                                                 <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
                                                     <i class="fa-solid fa-image text-white text-sm"></i>

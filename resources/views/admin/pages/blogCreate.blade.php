@@ -96,7 +96,7 @@
 
                         <!-- Categories -->
                         <div>
-                            <label for="categories" class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
+                            <label for="categories" class="block text-sm font-medium text-gray-700 mb-2">Categories *</label>
                             <div class="relative">
                                 <div id="categoryInput" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors min-h-[48px] cursor-pointer bg-white">
                                     <div id="selectedCategories" class="flex flex-wrap gap-2">
@@ -104,8 +104,8 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Hidden input for form submission -->
-                                <input type="hidden" name="category_ids" id="categoryIdsInput">
+                                <!-- Hidden inputs for form submission -->
+                                <div id="categoryInputs"></div>
                                 
                                 <!-- Dropdown -->
                                 <div id="categoryDropdown" class="hidden absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
@@ -117,7 +117,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <p class="mt-1 text-xs text-gray-500">Click to select multiple categories</p>
+                            <p class="mt-1 text-xs text-gray-500">Click to select multiple categories (at least one required)</p>
                             @error('category_ids')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -210,6 +210,7 @@
             const selectedCategories = document.getElementById('selectedCategories');
             const categoryIdsInput = document.getElementById('categoryIdsInput');
             const categoryOptions = document.querySelectorAll('.category-option');
+            const form = document.querySelector('form');
             
             let selectedCategoryIds = [];
             let selectedCategoryNames = [];
@@ -264,8 +265,17 @@
                     }).join('');
                 }
                 
-                // Hidden input'u güncelle
-                categoryIdsInput.value = selectedCategoryIds.join(',');
+                // Hidden input'ları güncelle - her kategori için ayrı input
+                const categoryInputs = document.getElementById('categoryInputs');
+                categoryInputs.innerHTML = '';
+                
+                selectedCategoryIds.forEach(id => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'category_ids[]';
+                    input.value = id;
+                    categoryInputs.appendChild(input);
+                });
             }
 
             // Kategoriyi kaldır
@@ -278,6 +288,22 @@
                 }
                 updateSelectedCategories();
             }
+
+            // Form submit kontrolü - en az bir kategori seçili olmalı
+            form.addEventListener('submit', function(e) {
+                if (selectedCategoryIds.length === 0) {
+                    e.preventDefault();
+                    alert('Please select at least one category before submitting.');
+                    
+                    // Kategori input'unu vurgula
+                    categoryInput.classList.add('border-red-500', 'ring-2', 'ring-red-500');
+                    setTimeout(() => {
+                        categoryInput.classList.remove('border-red-500', 'ring-2', 'ring-red-500');
+                    }, 3000);
+                    
+                    return false;
+                }
+            });
         });
     </script>
 @endsection

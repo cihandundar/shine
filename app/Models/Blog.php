@@ -69,4 +69,13 @@ class Blog extends Model
     {
         return $this->categories->pluck('name')->implode(', ');
     }
+
+    // Featured image URL'si
+    public function getFeaturedImageUrlAttribute()
+    {
+        if ($this->featured_image) {
+            return \Storage::disk('public')->url($this->featured_image);
+        }
+        return null;
+    }
 }
