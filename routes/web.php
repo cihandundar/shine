@@ -13,11 +13,15 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Front\ArchiveController;
 use App\Http\Controllers\Front\CategoryController as FrontCategoryController;
 
+// Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/blog/{id}', [HomeController::class, 'show'])->name('blog.show');
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/archive', [ArchiveController::class, 'index'])->name('archive.index');
-Route::get('/category', [FrontCategoryController::class, 'index'])->name('category.index');
+Route::get('/categories', [FrontCategoryController::class, 'index'])->name('category.index');
+Route::get('/category/{id}', [FrontCategoryController::class, 'show'])->name('category.show');
 
+// Admin Routes
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Dashboard - Tüm admin kullanıcılar erişebilir

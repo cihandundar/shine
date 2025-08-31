@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Author;
 use App\Models\Category;
+use Illuminate\Support\Str; // Str helper'ı ekliyoruz
 
 class Blog extends Model
 {
@@ -19,7 +20,8 @@ class Blog extends Model
         'status',
         'author_id',
         'published_date', // Yayınlanma tarihi alanı eklendi
-        'published_at'
+        'published_at',
+        'slug' // Slug alanını ekliyoruz
     ];
 
     protected $casts = [
@@ -27,6 +29,42 @@ class Blog extends Model
         'published_date' => 'date', // Yayınlanma tarihi için date cast eklendi
         'status' => 'string'
     ];
+
+    // Model boot method'unda slug otomatik oluşturma
+    protected static function boot()
+    {
+        parent::boot();
+        
+        // Blog oluşturulurken slug otomatik oluştur
+        static::creating(function ($blog) {
+            if (empty($blog->slug)) {
+                $blog->slug = Str::slug($blog->title);
+            }
+        });
+        
+        // Blog güncellenirken title değişirse slug'ı da güncelle
+        static::updating(function ($blog) {
+            if ($blog->isDirty('title') && empty($blog->slug)) {
+                $blog->slug = Str::slug($blog->title);
+            }
+        });
+    }
+
+    // Slug oluşturma method'u
+    public function generateSlug()
+    {
+        $slug = Str::slug($this->title);
+        $originalSlug = $slug;
+        $count = 1;
+        
+        // Aynı slug varsa sayı ekle
+        while (static::where('slug', $slug)->where('id', '!=', $this->id)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+        
+        return $slug;
+    }
 
     // Blog yazarı
     public function author()
@@ -77,5 +115,11 @@ class Blog extends Model
             return \Storage::disk('public')->url($this->featured_image);
         }
         return null;
+    }
+
+    // Image accessor - featured_image için alias
+    public function getImageAttribute()
+    {
+        return $this->featured_image;
     }
 }

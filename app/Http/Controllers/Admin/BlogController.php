@@ -56,6 +56,17 @@ class BlogController extends Controller
             \Log::info('Full image path: ' . storage_path('app/public/' . $featuredImagePath));
         }
 
+        // Slug oluştur
+        $slug = \Str::slug($request->title);
+        $originalSlug = $slug;
+        $count = 1;
+        
+        // Aynı slug varsa sayı ekle
+        while (Blog::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+
         $blog = Blog::create([
             'title' => $request->title,
             'content' => $request->content,
@@ -64,6 +75,7 @@ class BlogController extends Controller
             'status' => $request->status,
             'author_id' => $request->author_id,
             'published_date' => $request->published_date,
+            'slug' => $slug, // Slug alanını ekliyoruz
         ]);
 
         // Kategorileri ekle
@@ -122,6 +134,20 @@ class BlogController extends Controller
             \Log::info('Blog image updated: ' . $featuredImagePath);
         }
 
+        // Title değiştiyse slug'ı güncelle
+        $slug = $blog->slug;
+        if ($request->title !== $blog->title) {
+            $slug = \Str::slug($request->title);
+            $originalSlug = $slug;
+            $count = 1;
+            
+            // Aynı slug varsa sayı ekle
+            while (Blog::where('slug', $slug)->where('id', '!=', $blog->id)->exists()) {
+                $slug = $originalSlug . '-' . $count;
+                $count++;
+            }
+        }
+
         $blog->update([
             'title' => $request->title,
             'content' => $request->content,
@@ -130,6 +156,7 @@ class BlogController extends Controller
             'status' => $request->status,
             'author_id' => $request->author_id,
             'published_date' => $request->published_date,
+            'slug' => $slug, // Slug alanını ekliyoruz
         ]);
 
         // Kategorileri senkronize et
